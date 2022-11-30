@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class CreateStreamTest {
@@ -14,7 +15,7 @@ public class CreateStreamTest {
         Stream<String> arrayStream = Stream.of("Lutfi", "Dendiansyah");
         arrayStream.forEach(System.out::println);
 
-        String[] array = new String[] {"Lutfi", "Dendiansyah"};
+        String[] array = new String[] { "Lutfi", "Dendiansyah" };
         Stream<String> streamFromArray = Arrays.stream(array);
         streamFromArray.forEach(System.out::println);
     }
@@ -31,9 +32,18 @@ public class CreateStreamTest {
     }
 
     @Test
+    void testCreateStreamFromList() {
+        List<Integer> list = List.of(1, 2, 3, 4, 5);
+
+        List<Integer> listFilter = list.stream().map(n -> n * 2).collect(Collectors.toList());
+        System.out.println(listFilter);
+
+    }
+
+    @Test
     void testCreateStreamIterate() {
         Stream<String> stringStream = Stream.generate(() -> "Lutfi");
-        // stringStream.forEach(System.out::println);
+        stringStream.forEach(System.out::println);
 
         Stream<Integer> iterate = Stream.iterate(1, value -> value + 1);
         iterate.forEach(System.out::println);
