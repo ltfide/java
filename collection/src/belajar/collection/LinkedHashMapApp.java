@@ -6,7 +6,7 @@ import java.util.Set;
 
 public class LinkedHashMapApp {
    public static void main(String[] args) {
-      
+
       Map<String, String> map = new LinkedHashMap<>();
 
       map.put("first", "lutfi");
@@ -14,7 +14,7 @@ public class LinkedHashMapApp {
 
       Set<String> keys = map.keySet();
       for (var key : keys) {
-         System.out.println(key);
+         System.out.println(key); // first // last
       }
 
    }
