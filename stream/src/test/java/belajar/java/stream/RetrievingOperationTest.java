@@ -12,7 +12,7 @@ public class RetrievingOperationTest {
         List.of("Lutfi", "Dendiansyah", "Satu", "Dua")
                 .stream()
                 .limit(2)
-                .forEach(System.out::println);
+                .forEach(System.out::println); // Lutfi // Dendiansyah
     }
 
     @Test
@@ -20,7 +20,7 @@ public class RetrievingOperationTest {
         List.of("Lutfi", "Dendiansyah", "Satu", "Dua")
                 .stream()
                 .skip(2)
-                .forEach(System.out::println);
+                .forEach(System.out::println); // Satu // Dua
     }
 
     @Test
@@ -28,7 +28,7 @@ public class RetrievingOperationTest {
         List.of("Lutfi", "Dendiansyah", "Satu", "Dua")
                 .stream()
                 .takeWhile(str -> str.length() > 4)
-                .forEach(System.out::println);
+                .forEach(System.out::println); // Lutfi // Dendiansyah
     }
 
     @Test
@@ -36,14 +36,16 @@ public class RetrievingOperationTest {
         List.of("Lutfi", "Dendiansyah", "Satu", "Dua")
                 .stream()
                 .dropWhile(str -> str.length() >= 4)
-                .forEach(System.out::println);
+                .forEach(System.out::println); // Dua
     }
 
     @Test
     void testFindAny() {
         Optional<String> optional = List.of("Lutfi", "Dendiansyah", "Satu", "Dua").stream().findAny();
         Optional<String> optional2 = List.of("Lutfi", "Dendiansyah", "Satu", "Dua").stream().findAny();
-        Optional<String> optional3 = List.of("a", "Dendiansyah", "Satu", "Dua", "Tiga", "Empat", "Lima", "Enam", "Tujuh", "Delapan", "Sembilan").stream().findAny();
+        Optional<String> optional3 = List
+                .of("a", "Dendiansyah", "Satu", "Dua", "Tiga", "Empat", "Lima", "Enam", "Tujuh", "Delapan", "Sembilan")
+                .stream().findAny();
 
         optional.ifPresent(System.out::println);
         optional2.ifPresent(System.out::println);
@@ -54,11 +56,13 @@ public class RetrievingOperationTest {
     void testFindFirst() {
         Optional<String> optional = List.of("Lutfi", "Dendiansyah", "Satu", "Dua").stream().findFirst();
         Optional<String> optional2 = List.of("Lutfi", "Dendiansyah", "Satu", "Dua").stream().findFirst();
-        Optional<String> optional3 = List.of("a", "Dendiansyah", "Satu", "Dua", "Tiga", "Empat", "Lima", "Enam", "Tujuh", "Delapan", "Sembilan").stream().findFirst();
+        Optional<String> optional3 = List
+                .of("a", "Dendiansyah", "Satu", "Dua", "Tiga", "Empat", "Lima", "Enam", "Tujuh", "Delapan", "Sembilan")
+                .stream().findFirst();
 
-        optional.ifPresent(System.out::println);
-        optional2.ifPresent(System.out::println);
-        optional3.ifPresent(System.out::println);
+        optional.ifPresent(System.out::println); // Lutfi
+        optional2.ifPresent(System.out::println); // Lutfi
+        optional3.ifPresent(System.out::println); // a
     }
 
 }

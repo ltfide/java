@@ -13,7 +13,7 @@ public class OrderingOperationTest {
         List.of("Lutfi", "Dendiansyah", "Software")
                 .stream()
                 .sorted()
-                .forEach(System.out::println);
+                .forEach(System.out::println); // Dendiansyah // Lutfi // Software
     }
 
     @Test
@@ -23,7 +23,7 @@ public class OrderingOperationTest {
         List.of("Lutfi", "Dendiansyah", "Satu")
                 .stream()
                 .sorted(reverseComparator)
-                .forEach(System.out::println);
+                .forEach(System.out::println); // Satu // Lutfi // Dendiansyah
     }
 
 }

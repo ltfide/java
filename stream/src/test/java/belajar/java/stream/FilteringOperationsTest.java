@@ -12,10 +12,11 @@ public class FilteringOperationsTest {
 
         names.stream()
                 .filter(value -> value.length() > 5)
-                .forEach(System.out::println);
+                .forEach(System.out::println); // Dendiansyah
+
         names.stream()
                 .distinct()
-                .forEach(System.out::println);
+                .forEach(System.out::println); // Lutfi // Dendiansyah
     }
 
 }

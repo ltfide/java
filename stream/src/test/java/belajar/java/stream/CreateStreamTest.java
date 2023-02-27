@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 public class CreateStreamTest {
@@ -13,14 +14,23 @@ public class CreateStreamTest {
     @Test
     void testCreateStreamFromArray() {
         Stream<String> arrayStream = Stream.of("Lutfi", "Dendiansyah");
-        arrayStream.forEach(System.out::println);
+        arrayStream.forEach(System.out::println); // Lutfi // Dendiansyah
 
         String[] array = new String[] { "Lutfi", "Dendiansyah" };
         Stream<String> streamFromArray = Arrays.stream(array);
-        streamFromArray.forEach(System.out::println);
+        streamFromArray.forEach(System.out::println); // Lutfi // Dendiansyah
+
+        int[] numbers = { 1, 2, 3, 4, 5 };
+        IntStream stream = Arrays.stream(numbers);
+        stream.forEach(System.out::println); // 1 // 2 // 3 // 4 // 5
+
+        List<String> names = Arrays.asList("John", "Jane", "Bob");
+        Stream<String> stream2 = names.stream();
+        stream2.forEach(System.out::println);
     }
 
     @Test
+
     void testCreateStreamFromCollection() {
         Collection<String> collectionString = List.of("Lutfi", "Dendiansyah");
 
