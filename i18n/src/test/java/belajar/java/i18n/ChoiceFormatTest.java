@@ -14,12 +14,12 @@ public class ChoiceFormatTest {
         var pattern = "-1#negatif | 0#kosong | 1#satu | 1<banyak";
         var choiceFormat = new ChoiceFormat(pattern);
 
-        System.out.println(choiceFormat.format(-2));
-        System.out.println(choiceFormat.format(-1));
-        System.out.println(choiceFormat.format(0));
-        System.out.println(choiceFormat.format(1));
-        System.out.println(choiceFormat.format(2));
-        System.out.println(choiceFormat.format(3));
+        System.out.println(choiceFormat.format(-2)); // negatif
+        System.out.println(choiceFormat.format(-1)); // negatif
+        System.out.println(choiceFormat.format(0)); // kosong
+        System.out.println(choiceFormat.format(1)); // satu
+        System.out.println(choiceFormat.format(2)); // banyak
+        System.out.println(choiceFormat.format(3)); // banyak
     }
 
     @Test
@@ -30,9 +30,12 @@ public class ChoiceFormatTest {
         var pattern = resourceBundle.getString("balance");
 
         var messageFormat = new MessageFormat(pattern, locale);
-        System.out.println(messageFormat.format(new Object[]{-10000000}));
-        System.out.println(messageFormat.format(new Object[]{0}));
-        System.out.println(messageFormat.format(new Object[]{100000000}));
+        // Total Saldo: -curreny 10000000 Hutang
+        System.out.println(messageFormat.format(new Object[] { -10000000 }));
+        // Total Saldo: curreny 0 Kosong
+        System.out.println(messageFormat.format(new Object[] { 0 }));
+        // Total Saldo: curreny 100000000 Tersedia
+        System.out.println(messageFormat.format(new Object[] { 100000000 }));
     }
 
     @Test
@@ -43,9 +46,9 @@ public class ChoiceFormatTest {
         var pattern = resourceBundle.getString("balance");
 
         var messageFormat = new MessageFormat(pattern, locale);
-        System.out.println(messageFormat.format(new Object[]{-10000000}));
-        System.out.println(messageFormat.format(new Object[]{0}));
-        System.out.println(messageFormat.format(new Object[]{100000000}));
+        System.out.println(messageFormat.format(new Object[] { -10000000 }));
+        System.out.println(messageFormat.format(new Object[] { 0 }));
+        System.out.println(messageFormat.format(new Object[] { 100000000 }));
     }
 
 }
