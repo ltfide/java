@@ -14,10 +14,10 @@ public class CurrencyTest {
         var indonesia = new Locale("in", "ID");
         Currency currency = Currency.getInstance(indonesia);
 
-        System.out.println(currency.getDisplayName());
-        System.out.println(currency.getSymbol());
-        System.out.println(currency.getCurrencyCode());
-        System.out.println(currency.getSymbol(indonesia));
+        System.out.println(currency.getDisplayName()); // Indonesia Rupiah
+        System.out.println(currency.getSymbol()); // IDR
+        System.out.println(currency.getCurrencyCode()); // IDR
+        System.out.println(currency.getSymbol(indonesia)); // Rp
     }
 
     @Test
@@ -25,9 +25,9 @@ public class CurrencyTest {
         var usa = new Locale("en", "US");
         Currency currency = Currency.getInstance(usa);
 
-        System.out.println(currency.getDisplayName());
-        System.out.println(currency.getCurrencyCode());
-        System.out.println(currency.getSymbol(usa));
+        System.out.println(currency.getDisplayName()); // US Dollar
+        System.out.println(currency.getCurrencyCode()); // USD
+        System.out.println(currency.getSymbol(usa)); // $
     }
 
     @Test
@@ -36,7 +36,7 @@ public class CurrencyTest {
         var numberFormat = NumberFormat.getCurrencyInstance(indonesia);
 
         var format = numberFormat.format(100000000.33);
-        System.out.println(format);
+        System.out.println(format); // Rp100.000.000,33
     }
 
     @Test
@@ -46,7 +46,7 @@ public class CurrencyTest {
 
         try {
             var parse = numberFormat.parse("Rp100.000.000,33").doubleValue();
-            System.out.println(parse);
+            System.out.println(parse); // 1.0000000033E8
         } catch (ParseException e) {
             System.out.println("ERROR PARSE: " + e.getMessage());
         }

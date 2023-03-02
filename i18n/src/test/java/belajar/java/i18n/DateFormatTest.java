@@ -15,7 +15,7 @@ public class DateFormatTest {
         var dateFormat = new SimpleDateFormat(pattern);
 
         var format = dateFormat.format(new Date());
-        System.out.println(format);
+        System.out.println(format); // Kamis 02 Maret 2023
     }
 
     @Test
@@ -25,7 +25,7 @@ public class DateFormatTest {
         var dateFormat = new SimpleDateFormat(pattern, indonesia);
 
         var format = dateFormat.format(new Date());
-        System.out.println(format);
+        System.out.println(format); // Kamis 02 Maret 2023
     }
 
     @Test
@@ -35,11 +35,11 @@ public class DateFormatTest {
         var dateFormat = new SimpleDateFormat(pattern, japan);
 
         var format = dateFormat.format(new Date());
-        System.out.println(japan.getCountry());
-        System.out.println(japan.getLanguage());
-        System.out.println(japan.getDisplayLanguage());
-        System.out.println(japan.getDisplayCountry());
-        System.out.println(format);
+        System.out.println(japan.getCountry()); // JP
+        System.out.println(japan.getLanguage()); // ja
+        System.out.println(japan.getDisplayLanguage()); // Japanese
+        System.out.println(japan.getDisplayCountry()); // Japan
+        System.out.println(format); // 木曜日 02 3月 2023
     }
 
     @Test
@@ -49,8 +49,8 @@ public class DateFormatTest {
         var dateFormat = new SimpleDateFormat(pattern, indonesia);
 
         try {
-            var date = dateFormat.parse("水曜日 03 3月 2021");
-            System.out.println(date);
+            var date = dateFormat.parse("木曜日 02 3月 2023");
+            System.out.println(date); // Thu Mar 02 00:00:00 WIB 2023
         } catch (ParseException e) {
             System.out.println("ERROR PARSE: " + e.getMessage());
         }

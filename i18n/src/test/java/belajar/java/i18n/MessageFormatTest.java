@@ -17,6 +17,9 @@ public class MessageFormatTest {
                 "Lutfi"
         });
         System.out.println(format);
+        // output
+        // Hi Lutfi, Anda bisa mencari data Anda dengan mengetikkan "Lutfi" di
+        // pencarian.
     }
 
     @Test
@@ -28,9 +31,9 @@ public class MessageFormatTest {
 
         var messageFormat = new MessageFormat(pattern);
         var format = messageFormat.format(new Object[] {
-            "Lutfi", "Indonesia"
+                "Lutfi", "Indonesia"
         });
-        System.out.println(format);
+        System.out.println(format); // Hi Lutfi, Selamat datang di Indonesia
     }
 
 }

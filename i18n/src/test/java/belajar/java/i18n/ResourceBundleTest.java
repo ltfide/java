@@ -19,8 +19,8 @@ public class ResourceBundleTest {
     void testResourceBundle() {
         var resourceBundle = ResourceBundle.getBundle("message");
 
-        System.out.println(resourceBundle.getString("hello"));
-        System.out.println(resourceBundle.getString("goodbye"));
+        System.out.println(resourceBundle.getString("hello")); // Hello
+        System.out.println(resourceBundle.getString("goodbye")); // Good Bye
     }
 
     @Test
@@ -28,8 +28,8 @@ public class ResourceBundleTest {
         var indonesia = new Locale("in", "ID");
         var resourceBundle = ResourceBundle.getBundle("message", indonesia);
 
-        System.out.println(resourceBundle.getString("hello"));
-        System.out.println(resourceBundle.getString("goodbye"));
+        System.out.println(resourceBundle.getString("hello")); // Halo
+        System.out.println(resourceBundle.getString("goodbye")); // Selamat Tinggal
     }
 
     @Test
@@ -37,8 +37,8 @@ public class ResourceBundleTest {
         var indonesia = new Locale("en", "US");
         var resourceBundle = ResourceBundle.getBundle("message", indonesia);
 
-        System.out.println(resourceBundle.getString("hello"));
-        System.out.println(resourceBundle.getString("goodbye"));
+        System.out.println(resourceBundle.getString("hello")); // Hello
+        System.out.println(resourceBundle.getString("goodbye")); // Good Bye
     }
 
     @Test
@@ -47,7 +47,7 @@ public class ResourceBundleTest {
         var resourceBundle1 = ResourceBundle.getBundle("message", indonesia);
         var resourceBundle2 = ResourceBundle.getBundle("message", indonesia);
 
-        System.out.println(resourceBundle1 == resourceBundle2);
+        System.out.println(resourceBundle1 == resourceBundle2); // true
     }
 
 }

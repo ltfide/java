@@ -21,6 +21,8 @@ public class MessageFormatTypeTest {
                 "Lutfi", new Date(), 1000000
         });
         System.out.println(format);
+        // output
+        // Halo Lutfi, Sekarang Kamis, 02 Maret 2023, saldo Anda adalah Rp1.000.000,00
     }
 
     @Test
@@ -35,6 +37,8 @@ public class MessageFormatTypeTest {
                 "Lutfi", new Date(), 1000000
         });
         System.out.println(format);
+        // output
+        // Hi Lutfi, Now Thursday, 02 March 2023, your balance is $1,000,000.00
     }
 
 }

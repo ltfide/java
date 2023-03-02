@@ -10,9 +10,10 @@ public class NumberFormatTest {
 
     @Test
     void testNumberFormat() {
-        var numberFormat = NumberFormat.getInstance();
+        var usa = new Locale("en", "US");
+        var numberFormat = NumberFormat.getInstance(usa);
         var format = numberFormat.format(100000000.255);
-        System.out.println(format);
+        System.out.println(format); // 100,000,000.255
     }
 
     @Test
@@ -20,7 +21,7 @@ public class NumberFormatTest {
         var indonesia = new Locale("in", "ID");
         var numberFormat = NumberFormat.getInstance(indonesia);
         var format = numberFormat.format(100000000.255);
-        System.out.println(format);
+        System.out.println(format); // 100.000.000,255
     }
 
     @Test
@@ -30,7 +31,7 @@ public class NumberFormatTest {
 
         try {
             var result = numberFormat.parse("10.000.000,255").doubleValue();
-            System.out.println(result);
+            System.out.println(result); // 1.0000000255E7
         } catch (ParseException e) {
             System.out.println("ERROR PARSE: " + e.getMessage());
         }
