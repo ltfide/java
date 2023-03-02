@@ -46,8 +46,11 @@ public class ChoiceFormatTest {
         var pattern = resourceBundle.getString("balance");
 
         var messageFormat = new MessageFormat(pattern, locale);
+        // Total Balance: -curreny10000000 Debt
         System.out.println(messageFormat.format(new Object[] { -10000000 }));
+        // Total Balance: curreny0 Zero
         System.out.println(messageFormat.format(new Object[] { 0 }));
+        // Total Balance: curreny100000000 Available
         System.out.println(messageFormat.format(new Object[] { 100000000 }));
     }
 
