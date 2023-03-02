@@ -8,6 +8,14 @@ import java.util.ResourceBundle;
 public class ResourceBundleTest {
 
     @Test
+    void testResourceBundleFromAppProp() {
+        var resourceBundle = ResourceBundle.getBundle("application");
+
+        System.out.println(resourceBundle.getString("first.name")); // Lutfi
+        System.out.println(resourceBundle.getString("last.name")); // Dendiansyah
+    }
+
+    @Test
     void testResourceBundle() {
         var resourceBundle = ResourceBundle.getBundle("message");
 
