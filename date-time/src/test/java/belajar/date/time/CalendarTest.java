@@ -12,7 +12,7 @@ public class CalendarTest {
         Calendar calendar = Calendar.getInstance();
 
         Date date = calendar.getTime();
-        System.out.println(date);
+        System.out.println(date); // Fri Mar 03 06:34:24 WIB 2023
     }
 
     @Test
@@ -28,20 +28,20 @@ public class CalendarTest {
         calendar.set(Calendar.MILLISECOND, 100);
 
         Date date = calendar.getTime();
-        System.out.println(date);
-        System.out.println(date.getTime());
+        System.out.println(date); // Wed May 06 15:50:40 WIB 1998
+        System.out.println(date.getTime()); // 894444640100
     }
 
     @Test
     void getCalendar() {
         Calendar calendar = Calendar.getInstance();
 
-        System.out.println(calendar.get(Calendar.YEAR));
-        System.out.println(calendar.get(Calendar.MONTH));
-        System.out.println(calendar.get(Calendar.DATE));
-        System.out.println(calendar.get(Calendar.DAY_OF_MONTH));
-        System.out.println(calendar.get(Calendar.HOUR_OF_DAY));
-        System.out.println(calendar.get(Calendar.HOUR));
+        System.out.println(calendar.get(Calendar.YEAR)); // 2023
+        System.out.println(calendar.get(Calendar.MONTH)); // 2
+        System.out.println(calendar.get(Calendar.DATE)); // 3
+        System.out.println(calendar.get(Calendar.DAY_OF_MONTH)); // 3
+        System.out.println(calendar.get(Calendar.HOUR_OF_DAY)); // 6
+        System.out.println(calendar.get(Calendar.HOUR)); // 6
     }
 
 }
