@@ -13,7 +13,7 @@ public class DateFormatterTest {
       DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy MM dd");
 
       LocalDate localDate = LocalDate.parse("2020 10 25", formatter);
-      System.out.println(localDate);
+      System.out.println(localDate); // 2020-10-25
    }
 
    @Test
@@ -23,7 +23,7 @@ public class DateFormatterTest {
       LocalDate localDate = LocalDate.parse("2020 10 25", formatter);
       String format = localDate.format(formatter);
 
-      System.out.println(format);
+      System.out.println(format); // 2020 10 25
    }
 
    @Test
@@ -33,7 +33,7 @@ public class DateFormatterTest {
       LocalDate localDate = LocalDate.parse("2020 10 25", formatter);
       String format = localDate.format(DateTimeFormatter.ISO_LOCAL_DATE);
 
-      System.out.println(format);
+      System.out.println(format); // 2020-10-25
    }
 
    @Test
@@ -44,7 +44,7 @@ public class DateFormatterTest {
       LocalDate localDate = LocalDate.of(2021, 2, 3);
       String format = localDate.format(dateTimeFormatter);
 
-      System.out.println(format);
+      System.out.println(format); // Rabu 03 Februari 2021
    }
 
 }
