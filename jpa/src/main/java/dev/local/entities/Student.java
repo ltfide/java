@@ -13,6 +13,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @Entity
 @Table(name = "tbl_students")
+@NamedQuery(name = "find student by id", query = "select s from Student s where s.id = :id")
 public class Student implements Serializable {
 
     @Id
