@@ -26,4 +26,7 @@ public class Student implements Serializable {
     @Column(name = "last_name", length = 100, nullable = false)
     private String lastName;
 
+    @OneToOne
+    @JoinColumn(name = "school_id", unique = true)
+    private School school;
 }
