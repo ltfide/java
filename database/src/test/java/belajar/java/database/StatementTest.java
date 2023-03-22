@@ -1,8 +1,6 @@
 package belajar.java.database;
 
 import org.junit.jupiter.api.Test;
-
-import javax.swing.plaf.nimbus.State;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -25,8 +23,8 @@ public class StatementTest {
         Statement statement = connection.createStatement();
 
         String sql = """
-               INSERT INTO customers(id, name, email) VALUES ("lutfi", "lutfi", "lutfi@gmail.com") 
-                """;
+                INSERT INTO customers(id, name, email) VALUES ("lutfi", "lutfi", "lutfi@gmail.com")
+                 """;
         int update = statement.executeUpdate(sql);
         System.out.println(update);
 

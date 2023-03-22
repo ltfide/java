@@ -41,7 +41,7 @@ public class ConnectionTest {
         String username = "root";
         String password = "katasandi1";
 
-        try(Connection connection = DriverManager.getConnection(jdbcurl, username, password)) {
+        try (Connection connection = DriverManager.getConnection(jdbcurl, username, password)) {
             System.out.println("Terhubung....");
         } catch (SQLException exception) {
             Assertions.fail(exception);
