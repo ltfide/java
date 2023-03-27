@@ -1,5 +1,8 @@
 package belajar.java.database;
 
+import java.sql.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Iterator;
 
 import org.junit.jupiter.api.AfterAll;
@@ -15,13 +18,16 @@ import org.bson.Document;
 import org.bson.codecs.configuration.CodecProvider;
 import org.bson.codecs.configuration.CodecRegistry;
 import org.bson.codecs.pojo.PojoCodecProvider;
+import org.bson.types.ObjectId;
 
+import com.mongodb.MongoException;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.MongoIterable;
+import com.mongodb.client.result.InsertOneResult;
 
 import belajar.java.database.entity.Customer;
 
@@ -31,7 +37,7 @@ public class MongoTest {
 
     @BeforeAll
     static void beforeClass() {
-        String uri = "mongodb://localhost:27017";
+        String uri = "mongodb://mongo:mongo@localhost:27017";
         mongo = MongoClients.create(uri);
     }
 
@@ -89,7 +95,7 @@ public class MongoTest {
         CodecRegistry pojoCodecRegistry = fromRegistries(getDefaultCodecRegistry(), fromProviders(pojoCodecProvider));
 
         MongoDatabase database = mongo.getDatabase("belajar").withCodecRegistry(pojoCodecRegistry);
-        MongoCollection<Customer> collection = database.getCollection("customers", Customer.class);
+        MongoCollection<Customer> collection = database.getCollection("users", Customer.class);
         Customer customer = collection.find(eq("name", "Lutfi")).first();
 
         if (customer != null) {
@@ -97,5 +103,30 @@ public class MongoTest {
         } else {
             System.out.println("No matching documents found.");
         }
+    }
+
+    @Test
+    void testInsertOne() {
+        MongoDatabase database = mongo.getDatabase("belajar");
+        MongoCollection<Document> collection = database.getCollection("users");
+
+        try {
+            InsertOneResult result = collection.insertOne(new Document()
+                    .append("_id", new ObjectId())
+                    .append("name", "Lutfi")
+                    .append("created_at", LocalDate.now()));
+            System.out.println("Success! Insert document id " + result.getInsertedId());
+        } catch (MongoException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    @Test
+    void testUsersFind() {
+        MongoDatabase database = mongo.getDatabase("belajar");
+        MongoCollection<Document> collection = database.getCollection("users");
+        FindIterable<Document> find = collection.find();
+
+        find.forEach(System.out::println);
     }
 }
