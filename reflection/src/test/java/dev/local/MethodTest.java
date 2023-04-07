@@ -5,6 +5,8 @@ import java.lang.reflect.Method;
 
 import org.junit.jupiter.api.Test;
 
+import dev.local.data.Person;
+
 public class MethodTest {
 
     @Test

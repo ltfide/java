@@ -2,6 +2,8 @@ package dev.local;
 
 import org.junit.jupiter.api.Test;
 
+import dev.local.data.Person;
+
 public class SuperClassTest {
 
     @Test

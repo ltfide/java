@@ -4,6 +4,8 @@ import java.lang.reflect.Field;
 
 import org.junit.jupiter.api.Test;
 
+import dev.local.data.Person;
+
 public class FieldTest {
 
     @Test

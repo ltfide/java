@@ -6,6 +6,8 @@ import java.lang.reflect.Parameter;
 
 import org.junit.jupiter.api.Test;
 
+import dev.local.data.Person;
+
 public class ConstructorTest {
 
     @Test

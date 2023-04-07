@@ -1,4 +1,4 @@
-package dev.local;
+package dev.local.data;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -11,7 +11,7 @@ import lombok.ToString;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class Person {
+public class Person implements Nameable {
     private String firstName;
     private String lastName;
 }
