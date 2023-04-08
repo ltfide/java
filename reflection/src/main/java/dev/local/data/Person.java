@@ -21,4 +21,9 @@ public class Person implements Nameable {
     private String lastName;
 
     private int age;
+
+    public Person(String firstName, String lastName) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
 }
