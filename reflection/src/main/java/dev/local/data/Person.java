@@ -19,4 +19,6 @@ public class Person implements Nameable {
 
     @NotBlank(allowEmptyString = true)
     private String lastName;
+
+    private int age;
 }
