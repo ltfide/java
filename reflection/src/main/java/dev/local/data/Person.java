@@ -1,5 +1,7 @@
 package dev.local.data;
 
+import java.util.List;
+
 import dev.local.annotation.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -21,6 +23,8 @@ public class Person implements Nameable {
     private String lastName;
 
     private int age;
+
+    public List<String> hobbies;
 
     public Person(String firstName, String lastName) {
         this.firstName = firstName;
