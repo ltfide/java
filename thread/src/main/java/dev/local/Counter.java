@@ -5,7 +5,9 @@ public class Counter {
     private Long value = 0L;
 
     public void increment() {
-        value++;
+        synchronized (this) {
+            value++;
+        }
     }
 
     public Long getValue() {
