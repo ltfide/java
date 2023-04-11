@@ -1,0 +1,5 @@
+05:40:41.429 [main] TRACE com.local.MainTest - TRACE
+05:40:41.434 [main] DEBUG com.local.MainTest - DEBUG
+05:40:41.434 [main] INFO  com.local.MainTest - INFO
+05:40:41.435 [main] WARN  com.local.MainTest - WARN
+05:40:41.436 [main] ERROR com.local.MainTest - ERROR
