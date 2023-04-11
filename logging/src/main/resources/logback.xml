@@ -1,0 +1,16 @@
+<configuration>
+
+    <logger name="com.local" level="trace" />
+
+
+    <appender name="prod" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <root level="warn">
+        <appender-ref ref="prod" />
+    </root>
+
+</configuration>
