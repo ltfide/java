@@ -1,5 +1,6 @@
 package com.local;
 
+import java.util.Date;
 import java.util.List;
 
 public class Person {
@@ -11,6 +12,10 @@ public class Person {
     private List<String> hobbies;
 
     private Address address;
+
+    private Date createdAt;
+
+    private Date updatedAt;
 
     public Person() {
     }
@@ -52,6 +57,22 @@ public class Person {
 
     public void setAddress(Address address) {
         this.address = address;
+    }
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public Date getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(Date updatedAt) {
+        this.updatedAt = updatedAt;
     }
 
 }
