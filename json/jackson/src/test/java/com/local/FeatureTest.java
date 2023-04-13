@@ -1,5 +1,7 @@
 package com.local;
 
+import java.util.List;
+
 import org.junit.jupiter.api.Test;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -7,6 +9,7 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 
 public class FeatureTest {
 
@@ -37,8 +40,38 @@ public class FeatureTest {
                 """;
 
         Person person = objectMapper.readValue(json, Person.class);
-        System.out.println(person.getId());
-        System.out.println(person.getName());
-        System.out.println(person.getHobbies());
+        System.out.println(person.getId()); // 1
+        System.out.println(person.getName()); // Lutfi
+        System.out.println(person.getHobbies()); // [Coding]
+    }
+
+    @Test
+    void serializationFeature() throws JsonProcessingException {
+        Person person = new Person();
+        person.setId("1");
+        person.setName("Lutfi");
+        person.setHobbies(List.of("Coding", "Reading"));
+
+        Address address = new Address();
+        address.setStreet("Jalan belum jadi");
+        address.setCity("Jakarta");
+        address.setCountry("Indonesia");
+        person.setAddress(address);
+
+        ObjectMapper objectMapper = new ObjectMapper()
+                .configure(SerializationFeature.INDENT_OUTPUT, true);
+        String json = objectMapper.writeValueAsString(person);
+
+        System.out.println(json);
+        // {
+        // "id" : "1",
+        // "name" : "Lutfi",
+        // "hobbies" : [ "Coding", "Reading" ],
+        // "address" : {
+        // "street" : "Jalan belum jadi",
+        // "city" : "Jakarta",
+        // "country" : "Indonesia"
+        // }
+        // }
     }
 }
