@@ -22,6 +22,7 @@ public class CSVTest {
         printer.printRecord("lutfi", "teknik", 100);
         printer.printRecord("lisa", "marketing", 100);
         printer.printRecord("lili", "dokter", 100);
+
         printer.flush();
         printer.close();
 
@@ -57,5 +58,96 @@ public class CSVTest {
         // First Name : lili
         // Last Name : dokter
         // Value : 100
+    }
+
+    @Test
+    void testReadCSVWithHeader() throws IOException {
+        Path path = Path.of("sample.csv");
+        Reader reader = Files.newBufferedReader(path);
+
+        CSVFormat format = CSVFormat.DEFAULT.builder().setHeader().build();
+        CSVParser parser = new CSVParser(reader, format);
+        for (CSVRecord record : parser) {
+            System.out.println("Name: " + record.get("Name"));
+            System.out.println("Study: " + record.get("Study"));
+            System.out.println("Grade: " + record.get("Grade"));
+        }
+
+        reader.close();
+        parser.close();
+
+        // output
+        // Name: lutfi
+        // Study: teknik
+        // Grade: 100
+        // Name: lisa
+        // Study: marketing
+        // Grade: 100
+        // Name: lili
+        // Study: dokter
+        // Grade: 100
+    }
+
+    @Test
+    void createCSVWithHeader() throws IOException {
+        StringWriter writer = new StringWriter();
+
+        CSVFormat format = CSVFormat.DEFAULT.builder()
+                .setHeader("Name", "Study", "Grade").build();
+        CSVPrinter printer = new CSVPrinter(writer, format);
+        printer.printRecord("lutfi", "teknik", 100);
+        printer.printRecord("lisa", "marketing", 100);
+        printer.printRecord("lili", "dokter", 100);
+
+        String csv = writer.getBuffer().toString();
+        System.out.println(csv);
+
+        writer.close();
+        printer.flush();
+        printer.close();
+
+        // output
+        // Name,Study,Grade
+        // lutfi,teknik,100
+        // lisa,marketing,100
+        // lili,dokter,100
+    }
+
+    @Test
+    void createCSVWithCustomFormat() throws IOException {
+        StringWriter writer = new StringWriter();
+
+        CSVFormat format = CSVFormat.newFormat('*').builder()
+                .setHeader("First Name", "Last Name", "Value")
+                .build();
+        CSVPrinter printer = new CSVPrinter(writer, format);
+        printer.printRecord("Lutfi", "Dendiansyah", 100);
+        printer.flush();
+
+        String csv = writer.getBuffer().toString();
+        System.out.println(csv); // First Name*Last Name*ValueLutfi*Dendiansyah*100
+
+        writer.close();
+        printer.close();
+    }
+
+    @Test
+    void createCSVWithTab() throws IOException {
+        StringWriter writer = new StringWriter();
+
+        CSVFormat format = CSVFormat.TDF.builder()
+                .setHeader("First Name", "Last Name", "Value")
+                .build();
+        CSVPrinter printer = new CSVPrinter(writer, format);
+        printer.printRecord("Lutfi", "Dendiansyah", 100);
+        printer.flush();
+
+        String csv = writer.getBuffer().toString();
+        System.out.println(csv);
+        // First Name Last Name Value
+        // Lutfi Dendiansyah 100
+
+        writer.close();
+        printer.close();
     }
 }
