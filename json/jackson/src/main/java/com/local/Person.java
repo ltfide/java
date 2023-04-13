@@ -3,16 +3,27 @@ package com.local;
 import java.util.Date;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class Person {
 
     private String id;
 
     private String name;
 
+    @JsonProperty("full_name")
+    private String fullName;
+
+    @JsonIgnore
+    private String password;
+
     private List<String> hobbies;
 
     private Address address;
 
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date createdAt;
 
     private Date updatedAt;
@@ -73,6 +84,22 @@ public class Person {
 
     public void setUpdatedAt(Date updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
 }
