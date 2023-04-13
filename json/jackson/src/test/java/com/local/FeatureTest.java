@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -73,5 +74,18 @@ public class FeatureTest {
         // "country" : "Indonesia"
         // }
         // }
+    }
+
+    @Test
+    void serializationInclusion() throws JsonProcessingException {
+        ObjectMapper objectMapper = new ObjectMapper()
+                .setSerializationInclusion(Include.NON_NULL);
+
+        Person person = new Person();
+        person.setId("1");
+        person.setName("Lutfi");
+
+        String json = objectMapper.writeValueAsString(person);
+        System.out.println(json); // {"id":"1","name":"Lutfi"}
     }
 }
