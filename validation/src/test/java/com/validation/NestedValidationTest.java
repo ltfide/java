@@ -26,7 +26,7 @@ public class NestedValidationTest {
         person.setLastName("aja");
 
         Address address = new Address();
-        // person.setAddress(address);
+        person.setAddress(address);
 
         Set<ConstraintViolation<Person>> violations = validator.validate(person);
         for (ConstraintViolation<Person> violation : violations) {
@@ -34,5 +34,16 @@ public class NestedValidationTest {
             System.out.println(violation.getPropertyPath());
             System.out.println("=====================");
         }
+
+        // output
+        // country cannot blank
+        // address.country
+        // =====================
+        // city cannot blank
+        // address.city
+        // =====================
+        // street cannot blank
+        // address.street
+        // =====================
     }
 }
