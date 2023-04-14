@@ -14,7 +14,7 @@ public abstract class AbstractValidatorTest {
 
     private ValidatorFactory validatorFactory;
 
-    private Validator validator;
+    protected Validator validator;
 
     @BeforeEach
     void setUp() {

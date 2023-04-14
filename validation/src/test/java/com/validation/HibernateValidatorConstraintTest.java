@@ -13,5 +13,13 @@ public class HibernateValidatorConstraintTest extends AbstractValidatorTest {
         payment.setCreditCard("433");
 
         validate(payment);
+
+        // output
+        // credit card must valid number
+        // creditCard
+        // ===================
+        // amount must between 10000 and 100000000
+        // amount
+        // ===================
     }
 }
