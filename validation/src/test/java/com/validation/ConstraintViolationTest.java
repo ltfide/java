@@ -36,6 +36,20 @@ public class ConstraintViolationTest {
             System.out.println("Invalid Value : " + violation.getInvalidValue());
             System.out.println("Path : " + violation.getPropertyPath());
         }
+
+        // output
+        // Message: First name cannot empty
+        // Bean: Person(firstName=null, lastName=null)
+        // Constraint : @jakarta.validation.constraints.NotEmpty(message="First name
+        // cannot empty", payload={}, groups={})
+        // Invalid Value : null
+        // Path : firstName
+        // Message: last name cannot empty
+        // Bean: Person(firstName=null, lastName=null)
+        // Constraint : @jakarta.validation.constraints.NotEmpty(message="last name
+        // cannot empty", payload={}, groups={})
+        // Invalid Value : null
+        // Path : lastName
     }
 
     @Test
@@ -52,6 +66,20 @@ public class ConstraintViolationTest {
             System.out.println("Invalid Value : " + violation.getInvalidValue());
             System.out.println("Path : " + violation.getPropertyPath());
         }
+
+        // output
+        // Message: last name cannot empty
+        // Bean: Person(firstName=LUTFILUTFILUTFILUTFILUTFILUTFILUTFI, lastName=null)
+        // Constraint : @jakarta.validation.constraints.NotEmpty(message="last name
+        // cannot empty", payload={}, groups={})
+        // Invalid Value : null
+        // Path : lastName
+        // Message: first name length must be 2 - 6
+        // Bean: Person(firstName=LUTFILUTFILUTFILUTFILUTFILUTFILUTFI, lastName=null)
+        // Constraint : @jakarta.validation.constraints.Size(groups={}, min=2,
+        // message="first name length must be 2 - 6", payload={}, max=6)
+        // Invalid Value : LUTFILUTFILUTFILUTFILUTFILUTFILUTFI
+        // Path : firstName
     }
 
     @Test
