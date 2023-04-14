@@ -8,20 +8,29 @@ import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.LuhnCheck;
 import org.hibernate.validator.constraints.Range;
 
+import com.validation.data.group.CreditCardPaymentGroup;
+import com.validation.data.group.VirtualAccountPaymentGroup;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class Payment {
 
-    @NotBlank(message = "order id must not blank")
+    @NotBlank(groups = { CreditCardPaymentGroup.class,
+            VirtualAccountPaymentGroup.class }, message = "order id must not blank")
     private String orderId;
 
-    @NotNull(message = "amount must not null")
-    @Range(min = 10_000L, max = 100_000_000L, message = "amount must between 10000 and 100000000")
+    @NotNull(groups = { CreditCardPaymentGroup.class,
+            VirtualAccountPaymentGroup.class }, message = "amount must not null")
+    @Range(groups = { CreditCardPaymentGroup.class,
+            VirtualAccountPaymentGroup.class }, min = 10_000L, max = 100_000_000L, message = "amount must between 10000 and 100000000")
     private Long amount;
 
-    @NotNull(message = "credit card must not null")
-    @LuhnCheck(message = "credit card must valid number")
+    @NotBlank(groups = { CreditCardPaymentGroup.class }, message = "credit card must not blank")
+    @LuhnCheck(groups = { CreditCardPaymentGroup.class }, message = "credit card must valid number")
     private String creditCard;
+
+    @NotBlank(groups = { VirtualAccountPaymentGroup.class }, message = "virtual accoount must not blank")
+    private String virtualAccount;
 
 }
