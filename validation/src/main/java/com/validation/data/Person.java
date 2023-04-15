@@ -1,6 +1,7 @@
 package com.validation.data;
 
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -24,5 +25,14 @@ public class Person {
     @NotNull(message = "address cannot null")
     @Valid
     private Address address;
+
+    public void sayHello(@NotBlank(message = "name must not blank") String name) {
+        System.out.println("Hello " + name + ", my name is " + this.firstName);
+    }
+
+    @NotBlank(message = "fulname must not blank")
+    public String fullName() {
+        return this.firstName + " " + this.lastName;
+    }
 
 }
