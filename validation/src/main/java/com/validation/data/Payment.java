@@ -13,6 +13,7 @@ import org.hibernate.validator.constraints.Range;
 
 import com.validation.data.group.CreditCardPaymentGroup;
 import com.validation.data.group.VirtualAccountPaymentGroup;
+import com.validation.data.payload.EmailErrorPayload;
 
 @Data
 @NoArgsConstructor
@@ -30,7 +31,8 @@ public class Payment {
         private Long amount;
 
         @NotBlank(groups = { CreditCardPaymentGroup.class }, message = "credit card must not blank")
-        @LuhnCheck(groups = { CreditCardPaymentGroup.class }, message = "credit card must valid number")
+        @LuhnCheck(groups = { CreditCardPaymentGroup.class }, message = "credit card must valid number", payload = {
+                        EmailErrorPayload.class })
         private String creditCard;
 
         @NotBlank(groups = { VirtualAccountPaymentGroup.class }, message = "virtual accoount must not blank")
