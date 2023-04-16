@@ -11,6 +11,8 @@ import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.LuhnCheck;
 import org.hibernate.validator.constraints.Range;
 
+import com.validation.data.constraint.CheckCase;
+import com.validation.data.enums.CaseMode;
 import com.validation.data.group.CreditCardPaymentGroup;
 import com.validation.data.group.VirtualAccountPaymentGroup;
 import com.validation.data.payload.EmailErrorPayload;
@@ -22,6 +24,8 @@ public class Payment {
 
         @NotBlank(groups = { CreditCardPaymentGroup.class,
                         VirtualAccountPaymentGroup.class }, message = "{order.id.notblank}")
+        @CheckCase(groups = { CreditCardPaymentGroup.class,
+                        VirtualAccountPaymentGroup.class }, mode = CaseMode.UPPER, message = "order id must UPPERCASE")
         private String orderId;
 
         @NotNull(groups = { CreditCardPaymentGroup.class,
