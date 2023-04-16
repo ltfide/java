@@ -1,5 +1,7 @@
 package com.validation.data;
 
+import java.util.List;
+
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
@@ -11,6 +13,8 @@ import lombok.*;
 @Setter
 @ToString
 public class Person {
+
+    private List<@NotBlank(message = "hobby can not blank") String> hobbies;
 
     @NotEmpty(message = "First name cannot empty")
     @Size(min = 2, max = 6, message = "first name length must be {min} - {max}")
