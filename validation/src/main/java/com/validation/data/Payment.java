@@ -21,7 +21,7 @@ import com.validation.data.payload.EmailErrorPayload;
 public class Payment {
 
         @NotBlank(groups = { CreditCardPaymentGroup.class,
-                        VirtualAccountPaymentGroup.class }, message = "order id must not blank")
+                        VirtualAccountPaymentGroup.class }, message = "{order.id.notblank}")
         private String orderId;
 
         @NotNull(groups = { CreditCardPaymentGroup.class,
