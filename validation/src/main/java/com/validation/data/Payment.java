@@ -12,6 +12,7 @@ import org.hibernate.validator.constraints.LuhnCheck;
 import org.hibernate.validator.constraints.Range;
 
 import com.validation.data.constraint.CheckCase;
+import com.validation.data.constraint.CheckOrderId;
 import com.validation.data.enums.CaseMode;
 import com.validation.data.group.CreditCardPaymentGroup;
 import com.validation.data.group.VirtualAccountPaymentGroup;
@@ -22,30 +23,27 @@ import com.validation.data.payload.EmailErrorPayload;
 @AllArgsConstructor
 public class Payment {
 
-        @NotBlank(groups = { CreditCardPaymentGroup.class,
-                        VirtualAccountPaymentGroup.class }, message = "{order.id.notblank}")
-        @CheckCase(groups = { CreditCardPaymentGroup.class,
-                        VirtualAccountPaymentGroup.class }, mode = CaseMode.UPPER, message = "order id must UPPERCASE")
-        private String orderId;
+    @CheckOrderId(groups = { CreditCardPaymentGroup.class, VirtualAccountPaymentGroup.class })
+    private String orderId;
 
-        @NotNull(groups = { CreditCardPaymentGroup.class,
-                        VirtualAccountPaymentGroup.class }, message = "amount must not null")
-        @Range(groups = { CreditCardPaymentGroup.class,
-                        VirtualAccountPaymentGroup.class }, min = 10_000L, max = 100_000_000L, message = "{order.id.size}")
-        private Long amount;
+    @NotNull(groups = { CreditCardPaymentGroup.class,
+            VirtualAccountPaymentGroup.class }, message = "amount must not null")
+    @Range(groups = { CreditCardPaymentGroup.class,
+            VirtualAccountPaymentGroup.class }, min = 10_000L, max = 100_000_000L, message = "{order.id.size}")
+    private Long amount;
 
-        @NotBlank(groups = { CreditCardPaymentGroup.class }, message = "credit card must not blank")
-        @LuhnCheck(groups = { CreditCardPaymentGroup.class }, message = "credit card must valid number", payload = {
-                        EmailErrorPayload.class })
-        private String creditCard;
+    @NotBlank(groups = { CreditCardPaymentGroup.class }, message = "credit card must not blank")
+    @LuhnCheck(groups = { CreditCardPaymentGroup.class }, message = "credit card must valid number", payload = {
+            EmailErrorPayload.class })
+    private String creditCard;
 
-        @NotBlank(groups = { VirtualAccountPaymentGroup.class }, message = "virtual accoount must not blank")
-        private String virtualAccount;
+    @NotBlank(groups = { VirtualAccountPaymentGroup.class }, message = "virtual accoount must not blank")
+    private String virtualAccount;
 
-        @Valid
-        @NotNull(groups = { CreditCardPaymentGroup.class,
-                        VirtualAccountPaymentGroup.class }, message = "customer must not null")
-        @ConvertGroup(from = CreditCardPaymentGroup.class, to = Default.class)
-        @ConvertGroup(from = VirtualAccountPaymentGroup.class, to = Default.class)
-        private Customer customer;
+    @Valid
+    @NotNull(groups = { CreditCardPaymentGroup.class,
+            VirtualAccountPaymentGroup.class }, message = "customer must not null")
+    @ConvertGroup(from = CreditCardPaymentGroup.class, to = Default.class)
+    @ConvertGroup(from = VirtualAccountPaymentGroup.class, to = Default.class)
+    private Customer customer;
 }
