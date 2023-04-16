@@ -10,6 +10,11 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import com.validation.data.extractor.DataIntegerValueExtractor;
+import com.validation.data.extractor.DataValueExtractor;
+import com.validation.data.extractor.EntryValueExtractorKey;
+import com.validation.data.extractor.EntryValueExtractorValue;
+
 import java.util.Set;
 
 public abstract class AbstractValidatorTest {
@@ -22,7 +27,15 @@ public abstract class AbstractValidatorTest {
 
     @BeforeEach
     void setUp() {
-        validatorFactory = Validation.buildDefaultValidatorFactory();
+        // validatorFactory = Validation.buildDefaultValidatorFactory();
+
+        validatorFactory = Validation.byDefaultProvider().configure()
+                .addValueExtractor(new DataValueExtractor())
+                .addValueExtractor(new EntryValueExtractorKey())
+                .addValueExtractor(new EntryValueExtractorValue())
+                .addValueExtractor(new DataIntegerValueExtractor())
+                .buildValidatorFactory();
+
         validator = validatorFactory.getValidator();
         executableValidator = validator.forExecutables();
     }
