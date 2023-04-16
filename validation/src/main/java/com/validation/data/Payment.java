@@ -27,7 +27,7 @@ public class Payment {
         @NotNull(groups = { CreditCardPaymentGroup.class,
                         VirtualAccountPaymentGroup.class }, message = "amount must not null")
         @Range(groups = { CreditCardPaymentGroup.class,
-                        VirtualAccountPaymentGroup.class }, min = 10_000L, max = 100_000_000L, message = "amount must between 10000 and 100000000")
+                        VirtualAccountPaymentGroup.class }, min = 10_000L, max = 100_000_000L, message = "{order.id.size}")
         private Long amount;
 
         @NotBlank(groups = { CreditCardPaymentGroup.class }, message = "credit card must not blank")
