@@ -23,4 +23,12 @@ class CustomerTest {
         assertEquals("01", customer.getId());
         assertEquals("Lutfi", customer.getName());
     }
+
+    @Test
+    void testEquals() {
+        Customer customer1 = new Customer("001", "Lutfi");
+        Customer customer2 = new Customer("001", "Lisa");
+
+        assertEquals(customer1, customer2);
+    }
 }
