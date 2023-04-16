@@ -9,8 +9,6 @@ import lombok.*;
 
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
 @ToString
 public class Person {
 
@@ -25,6 +23,21 @@ public class Person {
     @NotNull(message = "address cannot null")
     @Valid
     private Address address;
+
+    @Valid
+    public Person() {
+
+    }
+
+    @Valid
+    public Person(
+            @NotEmpty(message = "First name cannot empty") String firstName,
+            @NotEmpty(message = "last name cannot empty") String lastName,
+            @NotNull(message = "address cannot null") @Valid Address address) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.address = address;
+    }
 
     public void sayHello(@NotBlank(message = "name must not blank") String name) {
         System.out.println("Hello " + name + ", my name is " + this.firstName);
