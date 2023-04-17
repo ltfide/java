@@ -5,6 +5,7 @@ import java.util.function.Supplier;
 import org.junit.jupiter.api.Test;
 
 import io.github.resilience4j.retry.Retry;
+import io.github.resilience4j.retry.RetryRegistry;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -32,5 +33,20 @@ public class EventPublisherTest {
             System.out.println(retry.getMetrics().getNumberOfSuccessfulCallsWithRetryAttempt()); // 0
             System.out.println(retry.getMetrics().getNumberOfSuccessfulCallsWithoutRetryAttempt()); // 0
         }
+    }
+
+    @Test
+    void registry() {
+        RetryRegistry registry = RetryRegistry.ofDefaults();
+        registry.getEventPublisher().onEntryAdded(event -> {
+            log.info("Add new entry {}", event.getAddedEntry().getName());
+        });
+
+        registry.retry("local");
+        registry.retry("local");
+        registry.retry("local2");
+
+        // 05:30:31.993 [main] INFO com.local.EventPublisherTest -- Add new entry local
+        // 05:30:32.010 [main] INFO com.local.EventPublisherTest -- Add new entry local2
     }
 }
