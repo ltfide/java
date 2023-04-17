@@ -8,7 +8,7 @@ import io.github.resilience4j.retry.Retry;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class EventPublishedTest {
+public class EventPublisherTest {
 
     private String hello() {
         throw new IllegalArgumentException("Ups");
