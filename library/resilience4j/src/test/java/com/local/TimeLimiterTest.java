@@ -1,5 +1,6 @@
 package com.local;
 
+import java.time.Duration;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -8,6 +9,7 @@ import java.util.concurrent.Future;
 import org.junit.jupiter.api.Test;
 
 import io.github.resilience4j.timelimiter.TimeLimiter;
+import io.github.resilience4j.timelimiter.TimeLimiterConfig;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 
@@ -36,5 +38,25 @@ public class TimeLimiterTest {
         // 21:39:01.109 [pool-1-thread-1] INFO com.local.TimeLimiterTest -- start slow
         // java.util.concurrent.TimeoutException: TimeLimiter 'local' recorded a timeout
         // exception.
+    }
+
+    @Test
+    void timeLimiterConfig() throws Exception {
+        ExecutorService executorService = Executors.newSingleThreadExecutor();
+        Future<Long> future = executorService.submit(() -> slow());
+
+        TimeLimiterConfig config = TimeLimiterConfig.custom()
+                .timeoutDuration(Duration.ofSeconds(10))
+                .cancelRunningFuture(true)
+                .build();
+
+        TimeLimiter timeLimiter = TimeLimiter.of("pzn", config);
+        Callable<Long> callable = TimeLimiter.decorateFutureSupplier(timeLimiter, () -> future);
+
+        callable.call();
+
+        // output
+        // 21:46:40.324 [pool-1-thread-1] INFO com.local.TimeLimiterTest -- start slow
+        // 21:46:50.339 [pool-1-thread-1] INFO com.local.TimeLimiterTest -- end slow
     }
 }
