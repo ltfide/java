@@ -28,6 +28,7 @@ public class RetryTest {
     private String sayHello() {
         log.info("call say hello");
         counter++;
+
         if (counter == 3) {
             return "HELLO";
         }
