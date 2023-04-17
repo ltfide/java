@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import io.github.resilience4j.ratelimiter.RateLimiter;
 import io.github.resilience4j.ratelimiter.RateLimiterConfig;
+import io.github.resilience4j.ratelimiter.RateLimiterRegistry;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -31,6 +32,34 @@ public class RateLimiterConfigTest {
             });
             runnable.run();
         }
+        // output
+        // 10:44:14.290 [main] INFO com.local.RateLimiterConfigTest -- Result 1 - 100
+        // io.github.resilience4j.ratelimiter.RequestNotPermitted: RateLimiter 'local'
+        // does not permit further calls
+    }
+
+    @Test
+    void testRateLimiterRegistry() {
+        RateLimiterConfig config = RateLimiterConfig.custom()
+                .limitForPeriod(100)
+                .limitRefreshPeriod(Duration.ofMinutes(1))
+                .timeoutDuration(Duration.ofSeconds(2))
+                .build();
+
+        RateLimiterRegistry registry = RateLimiterRegistry.ofDefaults();
+        registry.addConfiguration("config", config);
+
+        RateLimiter rateLimiter = registry.rateLimiter("local", "config");
+
+        for (int i = 0; i < 10_000; i++) {
+            Runnable runnable = RateLimiter.decorateRunnable(rateLimiter, () -> {
+                long result = counter.incrementAndGet();
+                log.info("Result: {}", result);
+            });
+
+            runnable.run();
+        }
+
         // output
         // 10:44:14.290 [main] INFO com.local.RateLimiterConfigTest -- Result 1 - 100
         // io.github.resilience4j.ratelimiter.RequestNotPermitted: RateLimiter 'local'
