@@ -2,11 +2,12 @@ package dev.local;
 
 import org.junit.jupiter.api.Test;
 
-import javax.imageio.stream.ImageInputStream;
 import java.io.*;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
-public class OutputStream {
+public class OutputStreamTest {
 
     @Test
     void testWriteFile() throws Exception {
@@ -37,16 +38,24 @@ public class OutputStream {
         URL imageURL = new URL(source);
 
         InputStream inputStream = imageURL.openStream();
-
         String filename = source.substring(source.lastIndexOf('/') + 1);
-
         FileOutputStream outputStream = new FileOutputStream(filename);
 
         outputStream.write(inputStream.readAllBytes());
-
         // memastikan bahwa semua data yang ada di dalam buffer OutputStream dikirimkan ke target output
         outputStream.flush();
-
         outputStream.close();
+    }
+
+    @Test
+    void testOutputStream() throws IOException {
+        Path path = Path.of("hello.txt");
+        String content = "Hello World \n";
+        try (java.io.OutputStream stream = Files.newOutputStream(path)) {
+            for (int i = 0; i < 10; i++) {
+                stream.write(content.getBytes());
+                stream.flush();
+            }
+        }
     }
 }
