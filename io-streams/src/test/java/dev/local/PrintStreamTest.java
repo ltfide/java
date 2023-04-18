@@ -3,9 +3,35 @@ package dev.local;
 import org.junit.jupiter.api.Test;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.io.PrintStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 public class PrintStreamTest {
+
+    @Test
+    void printStream() {
+        PrintStream stream = System.out;
+
+        stream.println("Hello");
+        stream.println("Hello");
+    }
+
+    @Test
+    void printStreamFile() {
+        Path path = Path.of("print.txt");
+        try (OutputStream output = Files.newOutputStream(path);
+            PrintStream stream = new PrintStream(output)) {
+
+            stream.println("Hello World");
+            stream.println("Hello World");
+            stream.println("Hello World");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     @Test
     void testPrint() throws FileNotFoundException {
