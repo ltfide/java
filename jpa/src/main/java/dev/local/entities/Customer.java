@@ -19,4 +19,8 @@ public class Customer {
 
     @Column(name = "primary_email")
     private String primaryEmail;
+
+    private Boolean married;
+
+    private Byte age;
 }
