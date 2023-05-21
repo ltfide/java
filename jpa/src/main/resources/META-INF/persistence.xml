@@ -16,6 +16,10 @@
             <property name="jakarta.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/belajar_jpa"/>
             <property name="jakarta.persistence.jdbc.user" value="root"/>
             <property name="jakarta.persistence.jdbc.password" value="katasandi1"/>
+
+            <property name="hibernate.show_sql" value="true"/>
+            <property name="hibernate.format_sql" value="true"/>
+            <property name="hibernate.hbm2ddl.auto" value="update"/>
         </properties>
     </persistence-unit>
 
