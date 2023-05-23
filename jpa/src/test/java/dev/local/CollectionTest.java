@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class CollectionTest {
 
@@ -36,6 +37,29 @@ public class CollectionTest {
         member.setEmail("lisa@mail.com");
         member.setName(name);
         member.setHobbies(List.of("Game", "Coding"));
+        entityManager.persist(member);
+
+        entityTransaction.commit();
+        entityManager.close();
+        entityManagerFactory.close();
+    }
+
+    @Test
+    void mapCollection() {
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        EntityTransaction entityTransaction = entityManager.getTransaction();
+        entityTransaction.begin();
+
+        Name name = new Name();
+        name.setTitle("Mrs");
+        name.setFirstName("Jack");
+        name.setLastName("Aja");
+
+        Member member = new Member();
+        member.setEmail("jack@mail.com");
+        member.setName(name);
+        member.setHobbies(List.of("Cooking", "Reading"));
+        member.setSkills(Map.of("Java", 100, "Golang", 90));
         entityManager.persist(member);
 
         entityTransaction.commit();
