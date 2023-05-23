@@ -1,5 +1,7 @@
 package dev.local;
 
+import dev.local.entities.Department;
+import dev.local.entities.DepartmentId;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -35,6 +37,26 @@ public class EmbeddedTest {
 
         member.setName(name);
         entityManager.persist(member);
+
+        entityTransaction.commit();
+        entityManager.close();
+        entityManagerFactory.close();
+    }
+
+    @Test
+    void embeddedId() {
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        EntityTransaction entityTransaction = entityManager.getTransaction();
+        entityTransaction.begin();
+
+        DepartmentId departmentId = new DepartmentId();
+        departmentId.setCompanyId("lutfi");
+        departmentId.setDepartmentId("lutfi");
+
+        Department department = new Department();
+        department.setId(departmentId);
+        department.setName("Tech");
+        entityManager.persist(department);
 
         entityTransaction.commit();
         entityManager.close();
