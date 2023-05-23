@@ -1,13 +1,10 @@
 package dev.local.entities;
 
-import jakarta.persistence.Embedded;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.List;
 
 @Getter
 @Setter
@@ -21,6 +18,12 @@ public class Member {
 
     @Embedded
     private Name name;
+
+    @ElementCollection
+    @CollectionTable(name = "hobbies", joinColumns = @JoinColumn(
+            name = "member_id", referencedColumnName = "id"
+    ))
+    private List<String> hobbies;
 
     private String email;
 }
