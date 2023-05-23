@@ -10,6 +10,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -61,6 +62,22 @@ public class CollectionTest {
         member.setHobbies(List.of("Cooking", "Reading"));
         member.setSkills(Map.of("Java", 100, "Golang", 90));
         entityManager.persist(member);
+
+        entityTransaction.commit();
+        entityManager.close();
+        entityManagerFactory.close();
+    }
+
+    @Test
+    void collectionUpdate() {
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        EntityTransaction entityTransaction = entityManager.getTransaction();
+        entityTransaction.begin();
+
+        Member member = entityManager.find(Member.class, 3);
+        member.setSkills(new HashMap<>());
+        member.getSkills().put("Java", 100);
+        entityManager.merge(member);
 
         entityTransaction.commit();
         entityManager.close();
