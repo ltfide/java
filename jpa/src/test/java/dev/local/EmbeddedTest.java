@@ -2,6 +2,7 @@ package dev.local;
 
 import dev.local.entities.Department;
 import dev.local.entities.DepartmentId;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -57,6 +58,24 @@ public class EmbeddedTest {
         department.setId(departmentId);
         department.setName("Tech");
         entityManager.persist(department);
+
+        entityTransaction.commit();
+        entityManager.close();
+        entityManagerFactory.close();
+    }
+
+    @Test
+    void embeddedIdFind() {
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        EntityTransaction entityTransaction = entityManager.getTransaction();
+        entityTransaction.begin();
+
+        DepartmentId departmentId = new DepartmentId();
+        departmentId.setCompanyId("lutfi");
+        departmentId.setDepartmentId("lutfi");
+
+        Department department = entityManager.find(Department.class, departmentId);
+        Assertions.assertEquals("Tech", department.getName());
 
         entityTransaction.commit();
         entityManager.close();
