@@ -35,4 +35,15 @@ public class Member {
     private List<String> hobbies;
 
     private String email;
+
+    @Transient
+    private String fullName;
+
+    @PostLoad
+    public void postLoad() {
+        fullName = String.format("%s. %s %s",
+                name.getTitle(),
+                name.getFirstName(),
+                name.getLastName());
+    }
 }
