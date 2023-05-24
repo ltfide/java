@@ -1,5 +1,6 @@
 package dev.local.entities;
 
+import dev.local.listener.UpdatedAtListener;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -11,7 +12,8 @@ import java.util.Calendar;
 @Setter
 @Entity
 @Table(name = "categories")
-public class Category {
+@EntityListeners(UpdatedAtListener.class)
+public class Category implements UpdatedAtAware {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
