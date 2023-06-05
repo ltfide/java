@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.concurrent.*;
 
-public class CyclicBearerTest {
+public class CyclicBarrierTest {
 
     @Test
     void test() throws InterruptedException {
