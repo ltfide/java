@@ -36,4 +36,21 @@ public class PhaserTest {
 
         executor.awaitTermination(1, TimeUnit.DAYS);
     }
+
+    @Test
+    void cyclicBarrier() throws InterruptedException {
+        final Phaser phaser = new Phaser();
+        final ExecutorService executor = Executors.newFixedThreadPool(15);
+
+        phaser.bulkRegister(5);
+        phaser.bulkRegister(5);
+        for (int i = 0; i < 10; i++) {
+            executor.execute(() -> {
+                phaser.arriveAndAwaitAdvance();
+                System.out.println("DONE");
+            });
+        }
+
+        executor.awaitTermination(1, TimeUnit.DAYS);
+    }
 }
