@@ -4,6 +4,7 @@ public class Person {
 
     private String firstname;
     private String lastname;
+    private String description;
 
     public String getFirstname() {
         return firstname;
@@ -20,4 +21,13 @@ public class Person {
     public void setLastname(String lastname) {
         this.lastname = lastname;
     }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
 }
