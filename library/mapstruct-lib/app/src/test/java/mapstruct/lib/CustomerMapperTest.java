@@ -25,4 +25,16 @@ public class CustomerMapperTest {
         System.out.println(customer.getName()); // Lutfi
         System.out.println(customer.getAccount().getAccountNumber()); // 111
     }
+
+    @Test
+    void updateCustomerFromDtoTest() {
+        CustomerDto customerDto = new CustomerDto();
+        customerDto.setName("Lutfi");
+
+        Customer customer = new Customer();
+        customer.setName("Wrong");
+
+        customerMapper.updateCustomerFromDto(customerDto, customer);
+        System.out.println(customer.getName()); // Lutfi
+    }
 }
