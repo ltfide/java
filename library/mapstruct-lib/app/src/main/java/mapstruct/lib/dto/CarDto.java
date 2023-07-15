@@ -1,4 +1,4 @@
-package mapstruct.lib;
+package mapstruct.lib.dto;
 
 public class CarDto {
 

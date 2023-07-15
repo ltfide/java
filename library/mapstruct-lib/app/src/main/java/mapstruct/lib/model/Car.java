@@ -1,4 +1,4 @@
-package mapstruct.lib;
+package mapstruct.lib.model;
 
 public class Car {
 

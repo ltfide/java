@@ -3,6 +3,10 @@ package mapstruct.lib;
 import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;
 
+import mapstruct.lib.dto.CarDto;
+import mapstruct.lib.mapper.CarMapper;
+import mapstruct.lib.model.Car;
+
 public class CarMapperTest {
 
     CarMapper carMapper = Mappers.getMapper(CarMapper.class);
