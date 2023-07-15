@@ -7,6 +7,6 @@ import org.mapstruct.Mapping;
 public interface CarMapper {
 
     @Mapping(source = "numberOfSeat", target = "seatCount")
-    @Mapping(source = "a", target = "b")
+    @Mapping(expression = "java(car.getA().toLowerCase())", target = "b")
     CarDto carToCarDto(Car car);
 }
