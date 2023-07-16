@@ -2,7 +2,10 @@ package com.example;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.util.List;
+
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import com.example.model.QUser;
@@ -27,21 +30,36 @@ public class QueryDSLIntegrationTest {
         EntityManager em = emf.createEntityManager();
 
         em.getTransaction().begin();
+
         User user1 = new User();
         user1.setName("Lutfi");
         user1.setEmail("lutfi@mail.com");
         em.persist(user1);
+
+        User user2 = new User();
+        user2.setName("Dh");
+        user2.setEmail("dh@mail.com");
+        em.persist(user2);
+
+        User user3 = new User();
+        user3.setName("Zh");
+        user3.setEmail("zh@mail.com");
+        em.persist(user3);
 
         em.getTransaction().commit();
 
         em.close();
     }
 
-    @Test
-    void whenFindByUsername_thenShouldReturnUser() {
+    @BeforeEach
+    void setUp() {
         em = emf.createEntityManager();
         em.getTransaction().begin();
         queryFactory = new JPAQueryFactory(em);
+    }
+
+    @Test
+    void whenFindByUsername_thenShouldReturnUser() {
 
         QUser quser = QUser.user;
         User user = queryFactory.selectFrom(quser)
@@ -50,5 +68,19 @@ public class QueryDSLIntegrationTest {
 
         assertEquals("Lutfi", user.getName());
         assertEquals("lutfi@mail.com", user.getEmail());
+    }
+
+    @Test
+    void whenUsingOrderBy_theResultsShouldOrdered() {
+
+        QUser qUser = QUser.user;
+        List<User> users = queryFactory.selectFrom(qUser)
+                .orderBy(qUser.name.asc())
+                .fetch();
+
+        assertEquals(3, users.size());
+        assertEquals("Dh", users.get(0).getName());
+        assertEquals("Lutfi", users.get(1).getName());
+        assertEquals("Zh", users.get(2).getName());
     }
 }
