@@ -124,4 +124,18 @@ public class QueryDSLIntegrationTest {
         assertEquals("My Second Post", userTitleCounts.get(1).get(qBlogPost.title));
         assertEquals(1L, userTitleCounts.get(1).get(count));
     }
+
+    @Test
+    void whenJoiningWithCondition_theResultCountShouldMatch() {
+
+        QUser qUser = QUser.user;
+        QBlogPost qBlogPost = QBlogPost.blogPost;
+
+        List<User> users = queryFactory.selectFrom(qUser)
+                .innerJoin(qUser.blogPosts, qBlogPost)
+                .on(qBlogPost.title.eq("Hello World!"))
+                .fetch();
+
+        assertEquals(2, users.size());
+    }
 }
