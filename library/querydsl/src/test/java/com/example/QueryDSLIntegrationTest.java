@@ -15,6 +15,7 @@ import com.example.model.User;
 import com.querydsl.core.Tuple;
 import com.querydsl.core.types.dsl.Expressions;
 import com.querydsl.core.types.dsl.NumberPath;
+import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
 import jakarta.persistence.EntityManager;
@@ -134,6 +135,22 @@ public class QueryDSLIntegrationTest {
         List<User> users = queryFactory.selectFrom(qUser)
                 .innerJoin(qUser.blogPosts, qBlogPost)
                 .on(qBlogPost.title.eq("Hello World!"))
+                .fetch();
+
+        assertEquals(2, users.size());
+    }
+
+    @Test
+    void whenRefiningWithSubquery_thenResultCountShouldMatch() {
+
+        QUser qUser = QUser.user;
+        QBlogPost qBlogPost = QBlogPost.blogPost;
+
+        List<User> users = queryFactory.selectFrom(qUser)
+                .where(qUser.id.in(
+                        JPAExpressions.select(qBlogPost.user.id)
+                                .from(qBlogPost)
+                                .where(qBlogPost.title.eq("Hello World!"))))
                 .fetch();
 
         assertEquals(2, users.size());
