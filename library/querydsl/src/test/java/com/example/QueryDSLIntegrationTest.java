@@ -1,6 +1,7 @@
 package com.example;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import java.util.List;
 
@@ -51,6 +52,11 @@ public class QueryDSLIntegrationTest {
         user3.setName("Zh");
         user3.setEmail("zh@mail.com");
         em.persist(user3);
+
+        User user4 = new User();
+        user4.setName("Xh");
+        user4.setEmail("xh@mail.com");
+        em.persist(user4);
 
         BlogPost blogPost1 = new BlogPost();
         blogPost1.setTitle("Hello World!");
@@ -154,5 +160,45 @@ public class QueryDSLIntegrationTest {
                 .fetch();
 
         assertEquals(2, users.size());
+    }
+
+    @Test
+    void whenUpdating_thenTheRecordShouldChange() {
+
+        QUser qUser = QUser.user;
+
+        queryFactory.update(qUser)
+                .where(qUser.name.eq("Dh"))
+                .set(qUser.name, "Dh Updated")
+                .execute();
+
+        em.getTransaction().commit();
+
+        String name = queryFactory.select(qUser.name)
+                .from(qUser)
+                .where(qUser.name.eq("Dh Updated"))
+                .fetchOne();
+
+        System.out.println(name);
+
+        assertEquals("Dh Updated", name);
+    }
+
+    @Test
+    void whenDeleting_thenTheRecordShouldChange() {
+
+        QUser qUser = QUser.user;
+
+        queryFactory.delete(qUser)
+                .where(qUser.name.eq("Xh"))
+                .execute();
+
+        em.getTransaction().commit();
+
+        User user = queryFactory.selectFrom(qUser)
+                .where(qUser.name.eq("Xh"))
+                .fetchOne();
+
+        assertNull(user);
     }
 }
