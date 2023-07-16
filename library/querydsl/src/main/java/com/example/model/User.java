@@ -1,9 +1,14 @@
 package com.example.model;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class User {
@@ -14,6 +19,9 @@ public class User {
 
     private String name;
     private String email;
+
+    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "user")
+    private Set<BlogPost> blogPosts = new HashSet<>(0);
 
     public Long getId() {
         return id;
@@ -37,6 +45,14 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public Set<BlogPost> getBlogPosts() {
+        return blogPosts;
+    }
+
+    public void setBlogPosts(Set<BlogPost> blogPosts) {
+        this.blogPosts = blogPosts;
     }
 
     @Override

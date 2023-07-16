@@ -8,8 +8,13 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import com.example.model.BlogPost;
+import com.example.model.QBlogPost;
 import com.example.model.QUser;
 import com.example.model.User;
+import com.querydsl.core.Tuple;
+import com.querydsl.core.types.dsl.Expressions;
+import com.querydsl.core.types.dsl.NumberPath;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
 import jakarta.persistence.EntityManager;
@@ -45,6 +50,21 @@ public class QueryDSLIntegrationTest {
         user3.setName("Zh");
         user3.setEmail("zh@mail.com");
         em.persist(user3);
+
+        BlogPost blogPost1 = new BlogPost();
+        blogPost1.setTitle("Hello World!");
+        blogPost1.setUser(user1);
+        em.persist(blogPost1);
+
+        BlogPost blogPost2 = new BlogPost();
+        blogPost2.setTitle("My Second Post");
+        blogPost2.setUser(user1);
+        em.persist(blogPost2);
+
+        BlogPost blogPost3 = new BlogPost();
+        blogPost3.setTitle("Hello World!");
+        blogPost3.setUser(user3);
+        em.persist(blogPost3);
 
         em.getTransaction().commit();
 
@@ -82,5 +102,26 @@ public class QueryDSLIntegrationTest {
         assertEquals("Dh", users.get(0).getName());
         assertEquals("Lutfi", users.get(1).getName());
         assertEquals("Zh", users.get(2).getName());
+    }
+
+    @Test
+    void whenGroupingByTitle_thenReturnsTuples() {
+
+        QBlogPost qBlogPost = QBlogPost.blogPost;
+
+        NumberPath<Long> count = Expressions.numberPath(Long.class, "c");
+
+        List<Tuple> userTitleCounts = queryFactory.select(qBlogPost.title, qBlogPost.id.count().as(count))
+                .from(qBlogPost).groupBy(qBlogPost.title).orderBy(count.desc())
+                .fetch();
+
+        System.out.println(userTitleCounts); // [[Hello World!, 2], [My Second Post, 1]]
+        System.out.println(count); // c
+
+        assertEquals("Hello World!", userTitleCounts.get(0).get(qBlogPost.title));
+        assertEquals(2L, userTitleCounts.get(0).get(count));
+
+        assertEquals("My Second Post", userTitleCounts.get(1).get(qBlogPost.title));
+        assertEquals(1L, userTitleCounts.get(1).get(count));
     }
 }
