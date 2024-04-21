@@ -44,4 +44,16 @@ public class TestReactor {
             err -> System.out.println(err.getMessage()),
             () -> System.out.println("finished")); // we must take care not to trigger an error
     }
+
+    @Test
+    void fluxHandle() {
+        Flux<Integer> range = Flux.range(1, 10);
+        Flux<Object> flux = range.handle((number, sink) -> {
+            if (number % 2 == 0) {
+                sink.next(number);
+            }
+        });
+
+        flux.subscribe(System.out::println);
+    }
 }
