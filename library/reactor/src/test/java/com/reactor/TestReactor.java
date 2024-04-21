@@ -56,4 +56,17 @@ public class TestReactor {
 
         flux.subscribe(System.out::println);
     }
+
+    @Test
+    void monoThread() throws InterruptedException {
+        Mono<String> mono = Mono.just("Hello ");
+        Runnable runnable = () -> mono
+                .map(s -> s + "thread " + Thread.currentThread().getName())
+                .subscribe(System.out::println);
+
+        Thread thread = new Thread(runnable);
+        thread.setName("SATU");
+        thread.start();
+        thread.join();
+    }
 }
