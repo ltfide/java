@@ -17,13 +17,13 @@ public class Product {
     private String name;
     private Long price;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(
             name = "brand_id",
             referencedColumnName = "id"
     )
     private Brand brand;
 
-    @ManyToMany(mappedBy = "likes")
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "likes")
     private Set<User> likedBy;
 }
