@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Set;
+
 @Getter
 @Setter
 @Entity
@@ -21,4 +23,7 @@ public class Product {
             referencedColumnName = "id"
     )
     private Brand brand;
+
+    @ManyToMany(mappedBy = "likes")
+    private Set<User> likedBy;
 }
