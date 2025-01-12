@@ -13,10 +13,8 @@ import java.util.List;
 @Setter
 @Entity
 @Table(name = "brands")
-public class Brand {
+public class Brand extends AuditableEntity<String> {
 
-    @Id
-    private String id;
     private String name;
     private String description;
 
