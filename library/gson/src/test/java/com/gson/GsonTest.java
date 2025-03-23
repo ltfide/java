@@ -7,10 +7,7 @@ import com.google.gson.reflect.TypeToken;
 import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.Type;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class GsonTest {
 
@@ -63,5 +60,8 @@ public class GsonTest {
         Type type = new TypeToken<Map<String, Object>>() {}.getType();
         Map<String, Object> personMap = gson.fromJson(personJson, type);
         System.out.println(personMap);
+
+        int[] ints = gson.fromJson("[1,2,3,4]", int[].class);
+        System.out.println(Arrays.toString(ints)); // [1, 2, 3, 4]
     }
 }
