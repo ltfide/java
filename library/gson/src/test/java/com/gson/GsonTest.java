@@ -1,8 +1,6 @@
 package com.gson;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
+import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
 import org.junit.jupiter.api.Test;
 
@@ -63,5 +61,55 @@ public class GsonTest {
 
         int[] ints = gson.fromJson("[1,2,3,4]", int[].class);
         System.out.println(Arrays.toString(ints)); // [1, 2, 3, 4]
+    }
+
+    @Test
+    void jsonObject() {
+        Gson gson = new Gson();
+        JsonObject jsonObject = new JsonObject();
+
+        Person person1 = new Person();
+        person1.setUsername("sL");
+        person1.setPassword("123");
+        person1.setSts(true);
+
+        JsonElement jsonElement = gson.toJsonTree(person1);
+        jsonObject.add("person1", jsonElement);
+        jsonObject.add("person2", jsonElement);
+        jsonObject.add("person3", jsonElement);
+
+        System.out.println(gson.toJson(jsonObject));
+        // {"person1":{"username":"sL","password":"123","sts":true},"person2":{"username":"sL","password":"123","sts":true},"person3":{"username":"sL","password":"123","sts":true}}
+
+        /* Nested Object */
+        JsonObject address = new JsonObject();
+        address.addProperty("city", "Jakarta");
+        address.addProperty("country", "Indonesia");
+
+        JsonArray hobbies = new JsonArray();
+        hobbies.add("Reading");
+        hobbies.add("Gaming");
+
+        JsonObject user = new JsonObject();
+        user.addProperty("name", "Lf");
+        user.add("address", address);
+        user.add("hobbies", hobbies);
+
+        System.out.println(gson.toJson(user));
+        // {"name":"Lf","address":{"city":"Jakarta","country":"Indonesia"},"hobbies":["Reading","Gaming"]}
+
+        String strJson = "{\"name\":\"Lf\",\"address\":{\"city\":\"Jakarta\",\"country\":\"Indonesia\"},\"hobbies\":[\"Reading\",\"Gaming\"]}";
+
+        JsonObject parser = new JsonObject();
+        if (JsonParser.parseString(strJson).isJsonObject()) {
+            parser = JsonParser.parseString(strJson).getAsJsonObject();
+        }
+
+        System.out.println(parser); // {"name":"Lf","address":{"city":"Jakarta","country":"Indonesia"},"hobbies":["Reading","Gaming"]}
+        System.out.println(parser.getAsJsonArray("hobbies")); // ["Reading","Gaming"]
+        System.out.println(parser.get("name").getAsString()); // Lf
+        System.out.println(parser.get("address").getAsJsonObject().get("city").getAsString()); // Jakarta
+        System.out.println(parser.has("name")); // true
+        System.out.println(parser.has("notfound")); // false
     }
 }
