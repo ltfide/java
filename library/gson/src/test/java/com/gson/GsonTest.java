@@ -112,4 +112,24 @@ public class GsonTest {
         System.out.println(parser.has("name")); // true
         System.out.println(parser.has("notfound")); // false
     }
+
+    @Test
+    void createJson() {
+        Map<String, Object> m1 = new HashMap<>();
+        m1.put("a", "A");
+        m1.put("b", "B");
+
+        Map<String, Object> m2 = new HashMap<>();
+        m2.put("c", "C");
+        m2.put("d", "D");
+
+        String m3 = "{\"e\":\"E\",\"f\":\"F\"}";
+
+        Gson gson = new Gson();
+        JsonObject jsonObj = new JsonObject();
+        jsonObj.add("m1", gson.toJsonTree(m1));
+        jsonObj.add("m2", gson.toJsonTree(m2));
+        jsonObj.add("m3", gson.toJsonTree(JsonParser.parseString(m3)));
+        System.out.println(jsonObj);
+    }
 }
