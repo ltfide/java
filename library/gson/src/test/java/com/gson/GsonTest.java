@@ -9,6 +9,16 @@ import java.util.*;
 
 public class GsonTest {
 
+    private boolean isValidJson(String jsonStr) {
+        try {
+            Gson gson = new Gson();
+            gson.fromJson(jsonStr, Object.class);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
     @Test
     void toJson() {
         Gson gson = new Gson();
@@ -61,6 +71,39 @@ public class GsonTest {
 
         int[] ints = gson.fromJson("[1,2,3,4]", int[].class);
         System.out.println(Arrays.toString(ints)); // [1, 2, 3, 4]
+    }
+
+    /**
+     * {
+     *   "a": {
+     *     "a1": "A1"
+     *   },
+     *   "b": {
+     *     "b1": "B1"
+     *   }
+     * }
+     */
+    @Test
+    void jsonTest1() {
+        String jsonStr = "{\"a\":{\"a1\":\"A1\"},\"b\":{\"b1\":\"B1\"}}";
+
+        Gson gson = new Gson();
+        Type type = new TypeToken<Map<String, Object>>(){}.getType();
+        Map<String, Object> json = gson.fromJson(jsonStr, type);
+        JsonObject jsonObj = JsonParser.parseString(String.valueOf(json.get("a"))).getAsJsonObject();
+        String a1 = jsonObj.get("a1").getAsString();
+        System.out.println(a1);
+
+        jsonStr = "{\"a\":\"A1\",\"b\":{\"b1\":\"B1\",\"b2\":\"B2\"}}";
+        if (isValidJson(jsonStr)) {
+            JsonObject jsonObject = JsonParser.parseString(jsonStr)
+                    .getAsJsonObject()
+                    .get("b").getAsJsonObject();
+            String b1 = jsonObject.get("b1").getAsString();
+            String b2 = jsonObject.get("b2").getAsString();
+            System.out.println(b1);
+            System.out.println(b2);
+        }
     }
 
     @Test
@@ -124,12 +167,13 @@ public class GsonTest {
         m2.put("d", "D");
 
         String m3 = "{\"e\":\"E\",\"f\":\"F\"}";
+        String m4 = "123";
 
         Gson gson = new Gson();
         JsonObject jsonObj = new JsonObject();
         jsonObj.add("m1", gson.toJsonTree(m1));
         jsonObj.add("m2", gson.toJsonTree(m2));
-        jsonObj.add("m3", gson.toJsonTree(JsonParser.parseString(m3)));
+        jsonObj.add("m3", gson.toJsonTree(JsonParser.parseString(m4)));
         System.out.println(jsonObj);
     }
 }
