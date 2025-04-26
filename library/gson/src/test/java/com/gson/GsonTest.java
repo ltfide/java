@@ -99,8 +99,18 @@ public class GsonTest {
             JsonObject jsonObject = JsonParser.parseString(jsonStr)
                     .getAsJsonObject()
                     .get("b").getAsJsonObject();
+
             String b1 = jsonObject.get("b1").getAsString();
             String b2 = jsonObject.get("b2").getAsString();
+            System.out.println(b1);
+            System.out.println(b2);
+        }
+
+        if (isValidJson(jsonStr)) {
+            JsonObject rootObj = gson.fromJson(jsonStr, JsonObject.class);
+            JsonObject bObj = rootObj.getAsJsonObject("b");
+            String b1 = bObj.get("b1").getAsString();
+            String b2 = bObj.get("b2").getAsString();
             System.out.println(b1);
             System.out.println(b2);
         }
