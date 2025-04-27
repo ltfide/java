@@ -1,7 +1,11 @@
 package com.local;
 
+import java.time.Duration;
+import java.time.LocalTime;
 import java.util.function.Supplier;
 
+import io.github.resilience4j.retry.RetryConfig;
+import io.github.resilience4j.retry.RetryRegistry;
 import org.junit.jupiter.api.Test;
 
 import io.github.resilience4j.retry.Retry;
@@ -48,5 +52,35 @@ public class RetryTest {
         // 09:43:43.527 [main] INFO com.local.RetryTest -- call say hello
         // 09:43:44.028 [main] INFO com.local.RetryTest -- call say hello
         // HELLO
+    }
+
+    private String callApi() {
+        System.out.println("Attempting to call external service " + LocalTime.now());
+        if (Math.random() < 0.8) {
+            throw new RuntimeException("Connection refused.");
+        }
+        return "success";
+    }
+
+    @Test
+    void retry1() {
+        RetryConfig config = RetryConfig.custom()
+                .maxAttempts(3)
+                .waitDuration(Duration.ofSeconds(2L))
+                .retryExceptions(RuntimeException.class)
+                .build();
+
+        RetryRegistry registry = RetryRegistry.of(config);
+        Retry retry = registry.retry("externalService");
+
+        Supplier<String> callApi = this::callApi;
+        Supplier<String> response = Retry.decorateSupplier(retry, callApi);
+
+        try {
+            String result = response.get();
+            System.out.println("result: " + result);
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+        }
     }
 }
